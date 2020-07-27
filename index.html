@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Générateur de citations</title>
+    </head>
+    <body>
+        <form method="post" action="#" id="formQuotations">
+            <p>
+                Choisissez le thème de vos citations :<br />
+                <input type="radio" name="topic" id="current" value="current" required /><label for="current">Citations courantes</label><br/>
+                <input type="radio" name="topic" id="cooking" value="cooking" /><label for="cooking">Citations de cuisine</label>
+            </p>
+            <label for="numberQuotations">Nombre de citations (entre 1 et 5) : </label>
+            <input type="number" name="numberQuotations" id="numberQuotations" min="1" max="5" />
+            <button type="submit" style="cursor: pointer;">Générer</button>
+        </form>
+
+        <div id="quotations"></div>
+
+        <form method="post" action="#" id="formNewQuotations" style="display: none">
+            <p>
+                Voulez-vous générer de nouvelles citations ?<br />
+                <input type="radio" name="newQuotations" id="yes" value="yes" required /><label for="yes">Oui</label><br/>
+                <input type="radio" name="newQuotations" id="no" value="no" /><label for="no">Non</label>
+            </p>
+            <input type="submit" value="Envoyer" style="cursor: pointer;" />
+        </form>
+
+        <script src="generator.js"></script>
+    </body>
+</html>
