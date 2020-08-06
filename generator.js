@@ -44,16 +44,20 @@ class Generator {
         this.initialFormQuotations = document.getElementById("formQuotations").innerHTML;
         this.initialFormNewQuotations = document.getElementById("formNewQuotations").innerHTML;
 
-        this.generateAllQuotations();
+        document.querySelector("#formQuotations").addEventListener("submit", this.generateAllQuotations);
     }
 
-    generateAllQuotations = () => {
-        document.querySelector("#formQuotations").addEventListener("submit", (e) => {
-            e.preventDefault();
-            let allQuotations = this.getAllQuotations(document.getElementById("formQuotations").elements.topic.value,
-            document.getElementById("formQuotations").elements.numberQuotations.value);
+    generateAllQuotations = (e) => {
+        e.preventDefault();
+        let numberQuotations = Number.parseInt(document.getElementById("formQuotations").elements.numberQuotations.value);
+        let topic = document.getElementById("formQuotations").elements.topic.value;
+        if(!Number.isNaN(numberQuotations) && numberQuotations >= 1 && numberQuotations <= 5 && (topic === "current" || topic === "cooking")) {
+            let allQuotations = this.getAllQuotations(topic, numberQuotations);
             this.printQuotations(allQuotations);
-        });
+        } else {
+            document.querySelector("#formQuotations").innerHTML = "";
+            document.getElementById("quotations").textContent = "Erreur : données envoyées incorrectes.";
+        }
     }
 
     drawRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -100,13 +104,14 @@ class Generator {
             document.getElementById("quotations").appendChild(paragraph);
         }
         document.getElementById("formNewQuotations").style.display = "block";
-        this.manageNewQuotations();
+        document.querySelector("#formNewQuotations").addEventListener("submit", this.manageNewQuotations);
     }
 
-    manageNewQuotations = () => {
-        document.querySelector("#formNewQuotations").addEventListener("submit", (e) => {
-            e.preventDefault();
-            document.querySelector("#formNewQuotations").style.display = "none";
+    manageNewQuotations = (e) => {
+        e.preventDefault();
+        let valueNewQuotations = document.querySelector("#formNewQuotations").elements.newQuotations.value;
+        document.querySelector("#formNewQuotations").style.display = "none";
+        if(valueNewQuotations === "yes" || valueNewQuotations === "no") {
             if(document.getElementById("yes").checked) {
                 document.getElementById("quotations").textContent = "";
             } else if(document.getElementById("no").checked) {
@@ -117,7 +122,9 @@ class Generator {
             }
             document.querySelector("#formQuotations").innerHTML = this.initialFormQuotations;
             document.querySelector("#formNewQuotations").innerHTML = this.initialFormNewQuotations;
-        });
+        } else {
+            document.getElementById("quotations").textContent = "Erreur : données envoyées incorrectes.";
+        }
     }
 }
 
