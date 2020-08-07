@@ -49,9 +49,9 @@ class Generator {
 
     generateAllQuotations = (e) => {
         e.preventDefault();
-        let numberQuotations = Number.parseInt(document.getElementById("formQuotations").elements.numberQuotations.value);
+        let numberQuotations = parseInt(document.getElementById("formQuotations").elements.numberQuotations.value);
         let topic = document.getElementById("formQuotations").elements.topic.value;
-        if(!Number.isNaN(numberQuotations) && numberQuotations >= 1 && numberQuotations <= 5 && (topic === "current" || topic === "cooking")) {
+        if(!isNaN(numberQuotations) && numberQuotations >= 1 && numberQuotations <= 5 && (topic === "current" || topic === "cooking")) {
             let allQuotations = this.getAllQuotations(topic, numberQuotations);
             this.printQuotations(allQuotations);
         } else {
